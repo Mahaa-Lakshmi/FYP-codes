@@ -1,0 +1,348 @@
+    <!DOCTYPE html>
+    <html>
+    <head>
+    	<meta charset="utf-8">
+    	<title>User Home</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+      <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+      <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+      <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="../static/styles.css">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js" integrity="sha512-QSkVNOCYLtj73J4hbmVoOV6KVZuMluZlioC+trLpewV8qMjsWqlIQvkn1KGX2StWvPMdWGBqim1xlC8krl1EKQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    </head>
+    <body >
+
+
+    <!-- Trigger/Open The Modal -->
+
+    <nav class="navbar navbar-inverse navbar-fixed">
+      <div class="container-fluid  ">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">Vehicle Health Monitor</a>
+        </div>
+        
+        <ul class="nav navbar-nav  navbar-right">
+          <li>
+          <button type="button" class="btn btn-default btn-lg" id="myBtn" style="float: right;">
+          <span class="glyphicon glyphicon-menu-hamburger"></span>     </button></li>
+          </ul>
+      </div>
+    </nav>
+
+
+
+
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+
+      <!-- Modal content -->
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <p style="text-align: center;" >Profile</p>
+
+
+    <img src="../static/images/user1.jpg" class="userimg">
+    <div style="text-align: center;" >
+    <p>{{userDetails['email']}}</p>
+    <br>
+
+
+        <p><b>Car:</b> {{userDetails['car']}}</p>
+    <p><b>Model: </b>{{userDetails['model']}}</p>
+    <br>
+    <a href="#"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
+    </div>
+
+      </div>
+
+    </div>
+
+    <!--body of the dashboard-->
+    <div class="container row-no-gutters">
+<h2>Vehicle parameter Report on the last drive</h2><br>
+    <!--ROW1-->
+
+    <div class="row ">
+
+    <!--Run time-->
+
+    <!--RPM-->
+    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 text-center effect3D smallbox"  >
+          <table>
+        <tr>
+          <td><h3><span class="glyphicon glyphicon-calendar"></span></h3>
+            <p>Latest Journey On</p>
+          </td>
+          <td><div id="runtime "><h1 >15-10-2000</h1></div></td>
+
+          </tr>
+    </table>
+
+    </div>
+
+    <!--RPM-->
+    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 text-center effect3D smallbox"  >
+          <table>
+        <tr>
+          <td><h3><span class="glyphicon glyphicon-hourglass"></span></h3>
+            <p>Runtime</p></td>
+          <td><div><h1 class="value ">{{list_values[0]}}</h1><p class="units">Minutes</p></div></td>
+
+          </tr>
+    </table>
+
+    </div>
+
+    <!--RPM-->
+    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 text-center effect3D smallbox"  >
+          <table>
+        <tr>
+          <td><h3><span class="glyphicon glyphicon-dashboard"></span></h3>
+            <p>Engine RPM (Max)</p>
+          </td>
+          <td><div><h1 class="value ">{{list_values[1]}}</h1><p class="units">RPM</p></div></td>
+
+          </tr>
+    </table>
+
+    </div>
+
+
+    <!--RPM-->
+    <!--RPM-->
+    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 text-center effect3D smallbox"  >
+          <table>
+        <tr>
+          <td><h3><span class="glyphicon glyphicon-dashboard"></span></h3>
+            <p>Engine RPM (Avg)</p>
+          </td>
+          <td><div><h1 class="value ">{{list_values[2]}}</h1><p class="units">RPM</p></div></td>
+
+          </tr>
+    </table>
+
+    </div>
+
+
+
+    </div>
+
+    <!--end of 1st row-->
+
+    <br>
+    <!--ROW2-->
+
+    <div class="row ">
+
+    <!--Small graph-->
+
+    <!--temp
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 text-center effect3D graphbox"  >
+          <p>ENGINE temperature</p>
+          <table>
+        <tr>
+          <td class="symboldata">
+          <img src="../static/images/temp.png" class="icon"></td>
+          <td>
+
+    <div class="w3-light-grey w3-round-xlarge" >
+        <div class="w3-container  w3-round-xlarge" style="width:25%" id="engine_temp">25%</div>
+      </div>
+
+    </td>
+    </tr>
+
+<tr>
+          <td class="symboldata">
+          <img src="../static/images/temp.png" class="icon"></td>
+          <td>
+
+    <div class="w3-light-grey w3-round-xlarge" >
+        <div class="w3-container  w3-round-xlarge" style="width:75%" id="engine_temp">75%</div>
+      </div>
+
+    </td>
+    </tr>
+
+
+  </table>
+
+ <p>INTAKE AIR temperature</p>
+          <table>
+        <tr>
+          <td class="symboldata">
+          <img src="../static/images/temp.png" class="icon"></td>
+          <td>
+
+    <div class="w3-light-grey w3-round-xlarge" >
+        <div class="w3-container  w3-round-xlarge" style="width:25%" id="intake_Air_temp">25%</div>
+      </div>
+
+    </td>
+    </tr>
+
+<tr>
+          <td class="symboldata">
+          <img src="../static/images/temp.png" class="icon"></td>
+          <td>
+
+    <div class="w3-light-grey w3-round-xlarge" >
+        <div class="w3-container  w3-round-xlarge" style="width:75%" id="intake_Air_temp">75%</div>
+      </div>
+
+    </td>
+    </tr>
+
+
+  </table>
+         -->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 text-center effect3D graphbox"  >
+
+<canvas id="temperature_comp"></canvas>
+
+
+    </div>
+
+
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 text-center effect3D graphbox"  >
+          <p>ENGINE RPM for the day</p>
+          <canvas id="engine_rpm"></canvas>
+        </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 text-center effect3D graphbox"  >
+          <p>Vehicle Speed</p>
+          <canvas id="vehicle_speed"></canvas>
+        </div>
+
+
+
+    </div><!--end of 2nd row-->
+
+        <!--3rd row-->
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 text-center effect3D graphbox"  >
+
+            </div>
+
+        </div>
+
+
+
+
+    </div>
+
+    <script>
+
+
+
+//graph
+const labels = {{engine_runtime}};
+
+  const data = {
+    labels: labels,
+    datasets: [{
+      label: 'Engine RPM Reading',
+      backgroundColor: 'rgb(255, 99, 132)',
+      borderColor: 'rgb(255, 99, 132)',
+      data: {{engine_rpm}} ,
+    }]
+  };
+
+  const config = {
+    type: 'line',
+    data: data,
+    options: {}
+  };
+
+  const engine_rpm = new Chart(
+    document.getElementById('engine_rpm'),
+    config
+  );
+
+const vehicle_speed=new Chart(document.getElementById("vehicle_speed"), {
+                type: "line",
+                data:
+                {
+                    labels: labels,
+                    datasets: [{
+                        label: "Speed of the vehicle (Kmph)",
+
+                        data: {{vehicle_speed}},
+                        fill: false,
+                        borderColor: "rgb(75, 192, 192)",
+                        lineTension: 0.1
+                    }]
+                },
+                options: {}
+            });
+
+const temperature_comp=new Chart(document.getElementById("temperature_comp"), {
+                type: "radar",
+                data:
+                {
+                    labels: labels,
+                    datasets: [{
+    label: 'Coolant Temperature',
+    data: {{coolant_temp}},
+    fill: true,
+    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+    borderColor: 'rgb(255, 99, 132)',
+    pointBackgroundColor: 'rgb(255, 99, 132)',
+    pointBorderColor: '#fff',
+    pointHoverBackgroundColor: '#fff',
+    pointHoverBorderColor: 'rgb(255, 99, 132)'
+  }, {
+    label: 'Intake Air Temperature',
+    data: {{intake_air_temp}},
+    fill: true,
+    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+    borderColor: 'rgb(54, 162, 235)',
+    pointBackgroundColor: 'rgb(54, 162, 235)',
+    pointBorderColor: '#fff',
+    pointHoverBackgroundColor: '#fff',
+    pointHoverBorderColor: 'rgb(54, 162, 235)'
+  }]
+                },
+                options: {}
+            });
+
+
+
+
+    // Get the modal
+    var modal = document.getElementById("myModal");
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("myBtn");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks the button, open the modal
+    btn.onclick = function() {
+      modal.style.display = "block";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+      modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+    </script>
+
+
+
+
+
+    </body>
+    </html>
