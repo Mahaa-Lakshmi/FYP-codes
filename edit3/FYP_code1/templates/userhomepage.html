@@ -72,18 +72,6 @@
     <!--Run time-->
 
     <!--RPM-->
-    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 text-center effect3D smallbox"  >
-          <table>
-        <tr>
-          <td><h3><span class="glyphicon glyphicon-calendar"></span></h3>
-            <p>Latest Journey On</p>
-          </td>
-          <td><div id="runtime "><h1 >15-10-2000</h1></div></td>
-
-          </tr>
-    </table>
-
-    </div>
 
     <!--RPM-->
     <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 text-center effect3D smallbox"  >
@@ -122,6 +110,19 @@
             <p>Engine RPM (Avg)</p>
           </td>
           <td><div><h1 class="value ">{{list_values[2]}}</h1><p class="units">RPM</p></div></td>
+
+          </tr>
+    </table>
+
+    </div>
+
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 text-center effect3D smallbox"  >
+          <table>
+        <tr>
+          <td><h3><img src="../static/images/vehicle_speed.png" height="70px"></h3>
+            <p>Average Speed</p>
+          </td>
+          <td><div id="runtime "><h1 class="value " >{{avg_speed}}</h1><p class="units">Km/Hr</p></div></td>
 
           </tr>
     </table>
@@ -230,10 +231,26 @@
 
         </div>
 
+<!--Health-->
+<div class="row">
+    <div class="healthbutton">
+    <button type="button" class="btn btn-warning btn-lg" onclick="{{url_for('/checkhealth')}}">Check Vehicle Health</button>
+    <br><br>
+        <button type="button" class="btn btn-warning btn-lg" onclick="{{url_for('/livecheckhealth')}}">Check Live Vehicle Health</button>
+
+    <h1>{{res}}</h1>
+    </div>
+</div>
 
 
 
     </div>
+    <!--end of 1st container-->
+
+
+
+
+
 
     <script>
 

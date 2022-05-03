@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, url_for,redirect
+from classifier import myfunc
 import firebase_admin
 from firebase_admin import credentials, firestore
 from firebase import firebase
@@ -33,11 +34,34 @@ app = Flask(__name__)
 activeuser=""
 nelist=[]
 
-def get_df(cloudfilename):
+def get_df():
+    cloudfilename="live27.csv"
     url = storage.child(cloudfilename).get_url(None)
     print(url)
     df = pd.read_csv(url, index_col=False)
     return df
+
+def get_dashboard_values():
+    df = get_df()
+    send_list_values = []
+    send_list_values.append(math.ceil(max(df['ENGINE_RUN_TINE ()']) / 60))
+    send_list_values.append(round(max(df['ENGINE_RPM ()']), 2))
+    send_list_values.append(round(df['ENGINE_RPM ()'].mean(), 2))
+    send_list_values.append(df['ENGINE_RPM ()'].tolist()) #engine rpm
+    send_list_values.append(df['ENGINE_RUN_TINE ()'].tolist()) #engine run time
+    send_list_values.append(df['VEHICLE_SPEED ()'].tolist()) #engine vehicle speed
+    send_list_values.append(df['COOLANT_TEMPERATURE ()'].tolist()) #coolant temp
+    send_list_values.append(df['INTAKE_AIR_TEMP ()'].tolist()) #intake temp
+    send_list_values.append(round(df['VEHICLE_SPEED ()'].mean(), 2)) #vehicle speed
+    return send_list_values
+
+def get_health_values_from_file():
+    df=get_df()
+    send_list_values=[]
+    send_list_values.append(round(df['ENGINE_RPM ()'].mean(), 2))
+    send_list_values.append(round(df['INTAKE_AIR_TEMP ()'].mean(), 2))  # intake temp
+    send_list_values.append(round(df['COOLANT_TEMPERATURE ()'].mean(), 2))  # coolant temp
+    return send_list_values
 
 
 @app.route('/')
@@ -59,17 +83,8 @@ def login():
             userID=login['localId']
             doc_ref = firestore_db.collection(u'users').document(userID).get()
             userDetails=doc_ref.to_dict()
-            df=get_df('live27.csv')
-            send_list_values=[]
-            send_list_values.append(math.ceil(max(df['ENGINE_RUN_TINE ()'])/60))
-            send_list_values.append(round(max(df['ENGINE_RPM ()']),2))
-            send_list_values.append(round(df['ENGINE_RPM ()'].mean(),2))
-            engine_rpm=df['ENGINE_RPM ()'].tolist()
-            engine_runtime=df['ENGINE_RUN_TINE ()'].tolist()
-            vehicle_speed=df['VEHICLE_SPEED ()'].tolist()
-            coolant_temp=df['COOLANT_TEMPERATURE ()'].tolist()
-            intake_air_temp=df['INTAKE_AIR_TEMP ()'].tolist()
-            return render_template("userhomepage.html",coolant_temp=coolant_temp,intake_air_temp=intake_air_temp,userDetails=userDetails,list_values=send_list_values,engine_rpm=engine_rpm,engine_runtime=engine_runtime,vehicle_speed=vehicle_speed)
+            send_list_values=get_dashboard_values()
+            return render_template("userhomepage.html",coolant_temp=send_list_values[6],avg_speed=send_list_values[8],intake_air_temp=send_list_values[7],userDetails=userDetails,list_values=send_list_values,engine_rpm=send_list_values[3],engine_runtime=send_list_values[4],vehicle_speed=send_list_values[5])
 
         except:
             msg="Invalid email or password"
@@ -102,6 +117,11 @@ def register():
             msg="Email already exists"
             return render_template('register.html',msg=msg)
 
+@app.route('/checkhealth')
+def checkhealth():
+    list1=get_health_values_from_file()
+    res=myfunc(list1[1],list1[2],list1[3])
+    return render_template('userhomepage.html',res=res)
 
 
 if __name__ == '__main__':

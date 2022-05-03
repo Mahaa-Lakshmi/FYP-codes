@@ -143,3 +143,11 @@ h3
 {
  background-color: deeppink; 
 }
+
+.healthbutton
+{
+width:80%;
+padding:100px;
+margin: auto;
+text-align: center;
+}
