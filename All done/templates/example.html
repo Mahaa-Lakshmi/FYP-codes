@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8" />
+    <title>Example</title>
+</head>
+<body>
+    {% for p in users %}
+  <h2> {{ p['email'] }} </h2>
+{% endfor %}
+
+    <h2> Submit your Details </h2>
+<form method="post" action="/submit">
+    <p>Email:  <input type="text" name="email"></p>
+    <p>Car: <input type="text" name="car"></p>
+    <p>Model: <input type="text" name="model"></p>
+    <p>Password: <input type="text" name="password"></p>
+
+    <p><input type="submit"></p>
+</form>
+
+</body>
+</html>
